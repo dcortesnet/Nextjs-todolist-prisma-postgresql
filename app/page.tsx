@@ -1,13 +1,20 @@
 import TodoCreate from "@/components/todo-create";
 import TodoList from "@/components/todo-list";
+import TodoTitle from "@/components/todo-title";
+import prisma from "../lib/db";
 
-export default function Home() {
+async function getTodos() {
+  return await prisma.todo.findMany();
+}
+
+export default async function Home() {
+  const todos = await getTodos();
+  console.log(todos);
+
   return (
     <main className="flex justify-center items-center h-screen">
       <div>
-        <h1 className="text-2xl font-bold mb-4 text-center">
-          Todo List Nextjs
-        </h1>
+        <TodoTitle />
         <TodoCreate />
         <TodoList />
       </div>
